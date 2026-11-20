@@ -2,14 +2,6 @@
 
 const gallery = document.getElementById("gallery");
 const viewButtons = [...gallery.querySelectorAll(".view-switch button")];
-for (const button of viewButtons) {
-  button.addEventListener("click", () => {
-    gallery.dataset.view = button.dataset.view;
-    for (const option of viewButtons) {
-      option.setAttribute("aria-pressed", String(option === button));
-    }
-  });
-}
 const nav = document.getElementById("logo-index");
 const toggle = document.querySelector(".index-toggle");
 const toggleImage = toggle.querySelector("img");
@@ -25,6 +17,35 @@ const lightbox = document.getElementById("lightbox");
 const fullImage = lightbox.querySelector("img");
 let activeProject = projects[0];
 let activeLink = links[0];
+
+function refreshProjects() {
+  const overview = gallery.dataset.view === "overview";
+  for (const project of projects) project.hidden = !overview && project !== activeProject;
+}
+
+function updateTitle() {
+  const title = gallery.dataset.view === "overview"
+    ? "方案总览"
+    : activeProject.querySelector("h1").querySelector(".detail-title").textContent;
+  document.title = "TOWER DIVE · " + title;
+}
+
+function setView(view) {
+  if (gallery.dataset.view === view) return;
+  gallery.dataset.view = view;
+  setIndexOpen(false);
+  for (const button of viewButtons) {
+    button.setAttribute("aria-pressed", String(button.dataset.view === view));
+  }
+  refreshProjects();
+  updateTitle();
+  if (view === "slides") revealActiveLink();
+  window.scrollTo(0, 0);
+}
+
+for (const button of viewButtons) {
+  button.addEventListener("click", () => setView(button.dataset.view));
+}
 
 function revealActiveLink() {
   if (!nav.clientHeight) return;
@@ -45,9 +66,8 @@ function setIndexOpen(open) {
 function selectProject(id, focusHeading = false) {
   const project = projectsById.get(id) ?? projectsById.get(legacyRoutes.get(id)) ?? projects[0];
   const changed = project !== activeProject;
-  activeProject.hidden = true;
-  project.hidden = false;
   activeProject = project;
+  refreshProjects();
 
   activeLink.removeAttribute("aria-current");
   activeLink = links.find((link) => link.hash === "#" + project.id);
@@ -56,7 +76,7 @@ function selectProject(id, focusHeading = false) {
   revealActiveLink();
 
   const heading = project.querySelector("h1");
-  document.title = "TOWER DIVE · " + heading.textContent;
+  updateTitle();
   if (changed) window.scrollTo(0, 0);
   if (focusHeading) heading.focus({ preventScroll: true });
 }
@@ -84,6 +104,14 @@ window.addEventListener("hashchange", () => {
 selectProject(window.location.hash.slice(1));
 
 gallery.addEventListener("click", (event) => {
+  const caseLink = event.target.closest(".overview-link");
+  if (caseLink && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+    event.preventDefault();
+    if (window.location.hash !== caseLink.hash) history.pushState(null, "", caseLink.hash);
+    setView("slides");
+    selectProject(caseLink.hash.slice(1), true);
+    return;
+  }
   const trigger = event.target.closest(".artwork");
   if (!trigger || !lightbox.showModal) return;
   const image = trigger.querySelector("img");
