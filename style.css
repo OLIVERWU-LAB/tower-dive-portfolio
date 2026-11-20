@@ -240,9 +240,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 .breakdown-scene figcaption {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   align-items: baseline;
-  gap: 10px clamp(18px, 3vw, 42px);
+  gap: 8px clamp(18px, 3vw, 40px);
   padding-top: clamp(14px, 2.4vw, 28px);
 }
 .breakdown-scene h3 {
@@ -251,21 +251,25 @@ button, a { -webkit-tap-highlight-color: transparent; }
   line-height: 1.2;
   margin: 0;
 }
-.breakdown-scene p { max-width: 44ch; margin-top: 0; }
+.breakdown-scene p { margin: 0; }
 .breakdown-vision {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px clamp(18px, 4vw, 54px);
-  padding-top: clamp(17px, 2.5vw, 28px);
   border-top: 1px solid #282828;
   margin: clamp(23px, 3vw, 34px) 0 0;
+  padding-top: clamp(17px, 2.5vw, 28px);
+}
+.breakdown-vision > div {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: baseline;
+  gap: 7px clamp(18px, 3vw, 40px);
 }
 .breakdown-vision dt { font-size: 1.125rem; font-weight: 650; }
+.breakdown-vision dd { margin: 0; }
 .gallery[data-view="overview"] .logo-breakdown { display: none; }
 @container (max-width: 540px) {
   .breakdown-parts,
   .breakdown-scene figcaption,
-  .breakdown-vision { grid-template-columns: minmax(0, 1fr); }
+  .breakdown-vision > div { grid-template-columns: minmax(0, 1fr); }
   .breakdown-icon { width: min(68%, 210px); }
 }
 .artwork {
