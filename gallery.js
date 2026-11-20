@@ -1,6 +1,15 @@
 "use strict";
 
 const gallery = document.getElementById("gallery");
+const viewButtons = [...gallery.querySelectorAll(".view-switch button")];
+for (const button of viewButtons) {
+  button.addEventListener("click", () => {
+    gallery.dataset.view = button.dataset.view;
+    for (const option of viewButtons) {
+      option.setAttribute("aria-pressed", String(option === button));
+    }
+  });
+}
 const nav = document.getElementById("logo-index");
 const toggle = document.querySelector(".index-toggle");
 const toggleImage = toggle.querySelector("img");
