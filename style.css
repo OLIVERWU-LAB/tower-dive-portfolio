@@ -242,19 +242,26 @@ body:has(.gallery[data-view="overview"]) .sidebar { display: none; }
 .gallery[data-view="overview"] .overview-link:hover { text-decoration: underline; text-underline-offset: .22em; }
 
 .gallery[data-view="overview"] .artwork-list {
-  --lane-gap: 9px;
-  grid-auto-flow: column;
-  grid-auto-columns: max(142px, calc((100% - 4 * var(--lane-gap)) / 5));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-content: start;
   align-items: start;
-  gap: var(--lane-gap);
-  overflow-x: auto;
-  padding: 3px 3px 11px;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: thin;
-  scrollbar-color: #6a6a6e transparent;
-  scroll-snap-type: x proximity;
+  gap: 9px;
+  min-width: 0;
+  padding: 3px;
 }
-.gallery[data-view="overview"] .artwork { aspect-ratio: 16 / 9; scroll-snap-align: start; }
+@media (max-width: 1120px) {
+  .gallery[data-view="overview"] .artwork-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .gallery[data-view="overview"] .artwork-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .gallery[data-view="overview"] .artwork-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 360px) {
+  .gallery[data-view="overview"] .artwork-list { grid-template-columns: minmax(0, 1fr); }
+}
+.gallery[data-view="overview"] .artwork { aspect-ratio: 16 / 9; min-width: 0; }
 .gallery[data-view="overview"] .artwork img { height: 100%; object-fit: contain; }
 .gallery[data-view="overview"] .artwork:focus-visible { outline-offset: -2px; }
 .gallery[data-view="overview"] .artwork:hover:not(:focus-visible) { outline: 1px solid #999; outline-offset: -1px; }
