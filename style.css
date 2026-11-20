@@ -191,10 +191,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
   margin-block: clamp(8px, 1.1vw, 16px);
   container-type: inline-size;
 }
-.logo-breakdown h2 {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+.logo-breakdown h2,
+.breakdown-scene h3,
+.breakdown-vision dt {
+  font-size: clamp(1.5rem, 2.2vw, 1.75rem);
   font-weight: 650;
-  line-height: 1.15;
+  line-height: 1.25;
+}
+.logo-breakdown h2 {
   margin: 0 0 clamp(20px, 3vw, 36px);
   text-align: center;
 }
@@ -215,7 +219,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 .breakdown-part-copy h3 {
   margin: 0;
-  font-size: clamp(1.3rem, 2vw, 1.55rem);
+  font-size: clamp(1.125rem, 1.6vw, 1.25rem);
   font-weight: 650;
   line-height: 1.25;
 }
@@ -223,7 +227,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .breakdown-scene p,
 .breakdown-vision dd {
   color: #c6c6c6;
-  font-size: clamp(1.125rem, 1.55vw, 1.25rem);
+  font-size: clamp(1rem, 1.4vw, 1.0625rem);
   line-height: 1.65;
   margin: 7px 0 0;
 }
@@ -245,12 +249,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   gap: 8px clamp(18px, 3vw, 40px);
   padding-top: clamp(14px, 2.4vw, 28px);
 }
-.breakdown-scene h3 {
-  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
-  font-weight: 650;
-  line-height: 1.2;
-  margin: 0;
-}
+.breakdown-scene h3 { margin: 0; }
 .breakdown-scene p { margin: 0; }
 .breakdown-vision {
   border-top: 1px solid #282828;
@@ -263,7 +262,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   align-items: baseline;
   gap: 7px clamp(18px, 3vw, 40px);
 }
-.breakdown-vision dt { font-size: 1.125rem; font-weight: 650; }
 .breakdown-vision dd { margin: 0; }
 .gallery[data-view="overview"] .logo-breakdown { display: none; }
 @container (max-width: 540px) {
