@@ -10,7 +10,7 @@
   --accent: #d8145a;
   --original-rail: clamp(252px, 22vw, 328px);
   --rail: calc(var(--original-rail) * 1.5 - var(--rail-padding) + 4px);
-  --gallery-background: #111112;
+  --gallery-background: #000;
   --gallery-line: #303033;
   --gallery-muted: #b0b0b5;
   --rail-padding: clamp(18px, 2vw, 29px);
@@ -179,13 +179,41 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .project-header .keywords { margin: 15px 0 0; color: var(--gallery-muted); font-size: .8125rem; }
 .project-header .description { margin: 8px 0 0; max-width: 45rem; font-size: 1rem; line-height: 1.7; }
 .artwork-list { display: grid; gap: clamp(10px, 1.4vw, 23px); }
+.logo-breakdown {
+  border-block: 1px solid #282828;
+  padding: clamp(26px, 4vw, 50px) 0;
+  margin-block: clamp(6px, 1.1vw, 16px);
+}
+.logo-breakdown h2 {
+  margin: 0 0 19px;
+  color: var(--gallery-muted);
+  font-size: .9rem;
+  font-weight: 500;
+}
+.logo-breakdown dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px clamp(14px, 2vw, 30px);
+  margin: 0;
+}
+.logo-breakdown dt { font-size: 1rem; font-weight: 650; }
+.logo-breakdown dd {
+  margin: 6px 0 0;
+  color: var(--gallery-muted);
+  font-size: .94rem;
+  line-height: 1.75;
+}
+.gallery[data-view="overview"] .logo-breakdown { display: none; }
+@media (max-width: 620px) {
+  .logo-breakdown dl { grid-template-columns: minmax(0, 1fr); }
+}
 .artwork {
   display: block;
   width: 100%;
   overflow: hidden;
   padding: 0;
   border: 0;
-  background: #19191b;
+  background: var(--gallery-background);
   cursor: zoom-in;
 }
 .artwork img { display: block; width: 100%; height: auto; }
